@@ -1,0 +1,36 @@
+/* src/components/CountryCard.css */
+.country-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background-color: #eaeaea;
+    width: 250px;
+    margin: 20px;
+    transition: transform 0.3s;
+  }
+  
+  .country-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .flag {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .country-info {
+    padding: 16px;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  p {
+    color: #777;
+    font-size: 1em;
+  }
+  

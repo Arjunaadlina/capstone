@@ -1,0 +1,40 @@
+/* src/App.css */
+.app {
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.charts-container {
+  display: flex;
+  justify-content: center; /* Memusatkan grafik secara horizontal */
+  gap: 20px; /* Jarak antara grafik */
+  height : 400px;
+}
+
+.chart {
+  flex: 1; /* Membuat kedua grafik memiliki ukuran yang sama *//* Tinggi grafik */
+}
+
+
+.continent-select {
+  margin: 20px;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
