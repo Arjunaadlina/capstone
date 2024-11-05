@@ -1,6 +1,7 @@
 export const fetchPopulationData = async () => {
+    const api = process.env.API
     try {
-        const response = await fetch('https://restcountries.com/v3.1/all');
+        const response = await fetch(api);
         const data = await response.json();
         console.log(data);
         return data.map(country => ({

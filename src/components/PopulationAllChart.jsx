@@ -21,12 +21,13 @@ const PopulationAllChart = ({ continentData }) => {
       {
         label: 'Total Population',
         data: labels.map(label => continentData[label].population), // Tetap gunakan data numerik
-        backgroundColor: 'rgba(153, 102, 255, 0.6)',
-        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: 'rgba(215, 178, 109, 0.6)',
+        borderColor: 'rgba(243, 234, 229, 0.8)',
         borderWidth: 1,
       },
     ],
   };
+  
 
   const options = {
     responsive: true,

@@ -4,6 +4,7 @@ import axios from 'axios';
 import ContinentChart from './components/ContinentChart';
 import './App.css';
 import PopulationAllChart from './components/PopulationAllChart';
+import Hero from './components/Hero';
 
 const App = () => {
   const [continentData, setContinentData] = useState({});
@@ -28,7 +29,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1>World Countries Dashboard</h1>
+      <Hero />
       <div className="charts-container">
         <div className="chart">
           <ContinentChart continentData={continentData} />
