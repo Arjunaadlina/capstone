@@ -5,6 +5,8 @@ import ContinentChart from './components/ContinentChart';
 import './App.css';
 import PopulationAllChart from './components/PopulationAllChart';
 import Hero from './components/Hero';
+import Bento from './components/Bento';
+import SubContent from './components/SubContent';
 
 const App = () => {
   const [continentData, setContinentData] = useState({});
@@ -28,16 +30,9 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app">
+    <div style={{height: '100vh'}}>
       <Hero />
-      <div className="charts-container">
-        <div className="chart">
-          <ContinentChart continentData={continentData} />
-        </div>
-        <div className="chart" style={{height: 400}}>
-          <PopulationAllChart continentData={continentData} />
-        </div>
-      </div>
+      <SubContent/>
     </div>
   );
 }
