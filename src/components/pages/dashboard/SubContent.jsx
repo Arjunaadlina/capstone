@@ -70,7 +70,7 @@ const SubContent = () => {
   }, []);
 
   return (
-<div className="mt-20 px-32 border border-primary-brown p-4 break-words">
+<div className="mt-20 sm:px-16 md:px-32 px-8">
   <p className="text-5xl font-bold text-center tracking-wide text-primary-brown">
     This year the world population is
   </p>
@@ -78,12 +78,14 @@ const SubContent = () => {
     <span ref={numberElement} className="number text-5xl font-bold">5.000.000.000</span>
   </div>
   <div className="sm:flex gap-8 mt-12 items-start">
-    <div className="sm:w-2/5 text-primary-brown border border-primary-brown p-4 break-words">
+    <div className="sm:w-2/5 text-primary-brown  p-4 break-words">
       <p>
-        cioenciesncsneoincsoiencsoneoincosiensiencsoincoienoininoenscinesoncsoncosncsoincsoincosncoiensoienoc
+      In this world there are 6 continents with the highest population being Asia and the least population being the continent of Antarctica.
       </p>
+      <br></br>
+      <p></p>
     </div>
-    <div className="sm:w-3/5">
+    <div className="sm:w-4/5 ">
       <PopulationAllChart continentData={continentData} />
     </div>
   </div>

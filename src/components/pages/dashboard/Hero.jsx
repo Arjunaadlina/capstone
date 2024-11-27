@@ -1,5 +1,5 @@
 import 'remixicon/fonts/remixicon.css';
-import '../assets/css/hero.css';
+import '../../../assets/css/hero.css';
 import gsap from 'gsap';
 import { useEffect } from 'react';
 

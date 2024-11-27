@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ContinentChart from './components/ContinentChart';
 import './App.css';
-import PopulationAllChart from './components/PopulationAllChart';
-import Hero from './components/Hero';
-import Bento from './components/Bento';
-import SubContent from './components/SubContent';
+import Hero from './components/pages/dashboard/Hero';
+import SubContent from './components/pages/dashboard/SubContent';
 
 const App = () => {
   const [continentData, setContinentData] = useState({});

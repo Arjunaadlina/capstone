@@ -50,7 +50,7 @@ const PopulationAllChart = ({ continentData }) => {
   };
 
   return (
-    <div style={{ width: '600px', height: '400px' }}> {/* Ukuran manual */}
+    <div className='w-full h-96'> 
       <Bar data={data} options={options} />
     </div>
   );
