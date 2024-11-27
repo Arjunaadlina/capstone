@@ -34,6 +34,7 @@ const Hero = () => {
         </div>
         <ul className="nav__links" id="nav-links">
           <li><a href="#">HOME</a></li>
+          <li><a href="#">RANK</a></li>
           <li><a href="#">COMPARE</a></li>
           <li><a href="#">CONTACT</a></li>
         </ul>

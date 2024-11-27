@@ -10,7 +10,7 @@ const PopulationAllChart = ({ continentData }) => {
   const formatPopulation = (population) => {
     if (population === 0) return '0';
     const billion = population / 1_000_000_000;
-    return billion % 1 === 0 ? `${billion} Billion` : `${billion.toFixed(1)} Billion`;
+    return billion % 1 === 0 ? `${billion} B` : `${billion.toFixed(1)} B`;
   };
 
   const data = {
@@ -27,8 +27,8 @@ const PopulationAllChart = ({ continentData }) => {
   };
 
   const options = {
-    responsive: true, // Nonaktifkan responsivitas
-    maintainAspectRatio: false, // Tidak menjaga rasio aspek
+    responsive: true,
+    maintainAspectRatio: false, 
     plugins: {
       legend: {
         position: 'top',

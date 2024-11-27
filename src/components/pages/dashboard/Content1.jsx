@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import PopulationAllChart from './PopulationAllChart';
-import axios from 'axios';
+import '../../../assets/css/map.css'
 
-const SubContent = () => {
-  const [continentData, setContinentData] = useState({});
-  const [worldPopulation, setWorldPopulation] = useState(0);
+const Content1 = ({continentData, worldPopulation}) => {
   const numberElement = useRef(null); 
   const [isInView, setIsInView] = useState(false); 
 
@@ -29,14 +27,14 @@ const SubContent = () => {
 
   useEffect(() => {
     if (isInView) {
-      const startNumber = 0; 
+      const startNumber = 3502321532; 
       const targetNumber = worldPopulation; 
 
       const numberAnimation = { currentNumber: startNumber };
 
       gsap.to(numberAnimation, {
         currentNumber: targetNumber,
-        duration: 2,
+        duration: 1.5,
         ease: 'power3.out',
         onUpdate: function () {
           if (numberElement.current) {
@@ -47,26 +45,6 @@ const SubContent = () => {
     }
   }, [isInView, worldPopulation]);
 
-  useEffect(() => {
-    axios.get('https://restcountries.com/v3.1/all')
-      .then(response => {
-        const data = response.data.reduce((acc, country) => {
-          const continent = country.region;
-          if (!acc[continent]) {
-            acc[continent] = { count: 0, population: 0 };
-          }
-          acc[continent].count += 1;
-          acc[continent].population += country.population;
-          return acc;
-        }, {});
-
-        const totalPopulation = response.data.reduce((sum, country) => sum + country.population, 0);
-        
-        setContinentData(data);
-        setWorldPopulation(totalPopulation); 
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
 
   return (
     <div className="mt-20 sm:px-16 md:px-32 px-8">
@@ -74,21 +52,23 @@ const SubContent = () => {
         This year the world population is
       </p>
       <div className="text-center mt-4 text-primary-brown mb-12">
-        <span ref={numberElement} className="number text-5xl font-bold">0</span>
+        <span ref={numberElement} className="number text-5xl font-bold">3502321532</span>
       </div>
       <div className="sm:flex gap-8 mt-12 items-start">
         <div className="sm:w-2/5 text-primary-brown p-4 break-words">
+          <h2 className="text-xl font-semibold mb-4">Exploring Population Across Continents</h2>
           <p>
-            In this world there are 6 continents with the highest population being Asia and the least population being the continent of Antarctica.
+            The world is home to diverse continents, each contributing uniquely to the global population. Asia, the largest continent, leads with the highest population, housing over 60% of the world’s people. Its countries, such as China and India, boast staggering populations that continue to grow and shape global trends.
           </p>
           <br></br>
         </div>
-        <div className="sm:w-4/5 ">
+        <div className="md:w-3/5 ">
           <PopulationAllChart continentData={continentData} />
         </div>
       </div>
+
     </div>
   );
 };
 
-export default SubContent;
+export default Content1;
