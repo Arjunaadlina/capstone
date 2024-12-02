@@ -6,9 +6,19 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        scroll: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+      },
       colors: {
         'primary-brown': '#2c2724',
         'primary-cream': '#f3eae5',
+        
+      },
+      animation: {
+        scroll: 'scroll 20s linear infinite',
       },
     },
   },

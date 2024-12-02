@@ -5,14 +5,20 @@ import './App.css';
 import Hero from './components/pages/dashboard/Hero';
 import Content1 from './components/pages/dashboard/Content1';
 import Content2 from './components/pages/dashboard/Content2';
+import Content3 from './components/pages/dashboard/Content3';
 
 const App = () => {
   const [continentData, setContinentData] = useState({});
   const [worldPopulation, setWorldPopulation] = useState(0);
   const [indonesiaRank, setIndonesiaRank] = useState(null); 
+  const [sortedCountries, setSortedCountries] = useState([]);
+
+  const axiosInstance = axios.create({
+    transport: new XMLHttpRequest(),
+  }); 
 
   useEffect(() => {
-    axios.get('https://restcountries.com/v3.1/all')
+    axiosInstance.get('https://restcountries.com/v3.1/all')
       .then(response => {
         const data = response.data.reduce((acc, country) => {
           const continent = country.region
@@ -33,16 +39,20 @@ const App = () => {
 
         setContinentData(data);
         setWorldPopulation(totalPopulation); 
+        setSortedCountries(sortedCountries);
         setIndonesiaRank(indonesiaRank);
       })
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
+  console.log(sortedCountries)
+
   return (
-    <div style={{height: '100vh'}}>
+    <div style={{marginBottom:'100px'}}>
       <Hero />
       <Content1 continentData={continentData} worldPopulation={worldPopulation} />
       <Content2 indonesiaRank={indonesiaRank}/>
+      <Content3 top1={sortedCountries[0]} lastTop={sortedCountries[sortedCountries.length - 1]}/>
     </div>
   );
 }
