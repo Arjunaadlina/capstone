@@ -6,6 +6,7 @@ import Hero from './components/pages/dashboard/Hero';
 import Content1 from './components/pages/dashboard/Content1';
 import Content2 from './components/pages/dashboard/Content2';
 import Content3 from './components/pages/dashboard/Content3';
+import Footer from './components/pages/dashboard/Footer';
 
 const App = () => {
   const [continentData, setContinentData] = useState({});
@@ -48,11 +49,12 @@ const App = () => {
   console.log(sortedCountries)
 
   return (
-    <div style={{marginBottom:'100px'}}>
+    <div>
       <Hero />
       <Content1 continentData={continentData} worldPopulation={worldPopulation} />
       <Content2 indonesiaRank={indonesiaRank}/>
       <Content3 top1={sortedCountries[0]} lastTop={sortedCountries[sortedCountries.length - 1]}/>
+      <Footer />
     </div>
   );
 }

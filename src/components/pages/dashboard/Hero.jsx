@@ -5,11 +5,26 @@ import { useEffect } from 'react';
 
 const Hero = () => {
   useEffect(() => {
-    // Animasi GSAP untuk hero-title
+    const handleScroll = () => {
+      const nav = document.querySelector("nav");
+      if (window.scrollY > 50) { 
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll); 
+    };
+  }, []);
+  useEffect(() => {
     gsap.fromTo(
       '.hero-title',
-      { opacity: 0, y: -50 }, // Properti awal
-      { opacity: 1, y: 0, duration: 1.8, ease: 'power3.out' } // Properti akhir
+      { opacity: 0, y: -50 },
+      { opacity: 1, y: 0, duration: 1.8, ease: 'power3.out' }
     );
     
     gsap.fromTo(

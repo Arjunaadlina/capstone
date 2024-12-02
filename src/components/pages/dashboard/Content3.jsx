@@ -14,7 +14,7 @@ function Content3({top1, lastTop}) {
                     observer.disconnect(); 
                 }
             },
-            { threshold: 0} 
+            { threshold: 0.1} 
         );
 
         if (cardRef.current) {
