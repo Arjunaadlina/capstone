@@ -2,6 +2,7 @@ import 'remixicon/fonts/remixicon.css';
 import '../../../assets/css/hero.css';
 import gsap from 'gsap';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   useEffect(() => {
@@ -37,26 +38,6 @@ const Hero = () => {
 
   return (
     <div className="hero">
-      {/* Navigation bar */}
-      <nav>
-        <div className="nav__header">
-          <div className="nav__logo">
-            <a href="#">CoPop</a>
-          </div>
-          <div className="nav__menu__btn" id="menu-btn">
-            <i className="ri-menu-line"></i>
-          </div>
-        </div>
-        <ul className="nav__links" id="nav-links">
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">RANK</a></li>
-          <li><a href="#">COMPARE</a></li>
-          <li><a href="#">CONTACT</a></li>
-        </ul>
-        <div className="nav__btns">
-          <button className="btn"><i className="ri-search-line"></i></button>
-        </div>
-      </nav>
 
       {/* Hero content */}
       <div className="container hero-content">

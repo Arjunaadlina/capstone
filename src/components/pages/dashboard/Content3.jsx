@@ -37,7 +37,7 @@ function Content3({top1, lastTop}) {
     return (
         <div className="sm:px-16 md:px-32 px-8 mt-24" ref={cardRef}>
             <p className="md:text-5xl text-3xl font-bold text-center tracking-wide text-primary-brown mb-12">Fun Facts</p>
-            <ul className="space-y-8">
+            <ul className="space-y-8 ">
                 <Card country={top1} desc={'largest'} />
                 <Card country={lastTop} desc={'smallest'} />
             </ul>

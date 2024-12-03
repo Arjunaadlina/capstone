@@ -1,13 +1,12 @@
 import React from 'react';
-import 'ionicons/dist/ionicons.js';
 
 function Footer() {
     return (
-        <footer className="bg-primary-brown text-gray-300 mt-36" >
-            <div className="py-12" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <div className="flex gap-8">
-                    <div className="w-1/3">
-                        <p className="font-semibold">
+        <footer className="bg-primary-brown text-gray-300 mt-36 sm:px-16 lg:px-32 px-8">
+            <div className="py-12">
+                <div className="flex-col  md:flex-row justify-between gap-8 flex">
+                    <div className="w:1/2 lg:w-1/3">
+                        <p className="font-semibold text-sm lg:text-xl sm:text-lg">
                             CoPop is a website to find out the population differences in each country throughout the world
                         </p>
                     </div>

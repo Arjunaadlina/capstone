@@ -62,7 +62,7 @@ const Content1 = ({continentData, worldPopulation}) => {
           </p>
           <br></br>
         </div>
-        <div className="md:w-3/5 ">
+        <div className="sm:w-3/5 ">
           <PopulationAllChart continentData={continentData} />
         </div>
       </div>

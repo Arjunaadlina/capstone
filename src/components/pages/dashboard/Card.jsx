@@ -17,7 +17,7 @@ function Card({ country, desc }) {
                         Country with the {desc} population in the world
                     </h3>
                     <p className="text-gray-600 leading-relaxed mb-6">
-                        This country has a population of {country && country.population}
+                        This country has a population of {country && country.population.toLocaleString()}
                     </p>
                     <ul className="flex flex-wrap items-center justify-center bg-white shadow rounded-full px-4 py-2 space-x-4">
                         <li className="flex items-center space-x-2 text-sm text-gray-600">

@@ -37,10 +37,10 @@ const Content2 = ({ indonesiaRank }) => {
 
     return (
         <div className="mt-28 lg:flex lg:justify-center w-full h-auto sm:px-16 md:px-32 px-8 gap-8 items-start">
-            <div className="sm:w-3/5">
+            <div className="lg:w-3/5 sm:w-full ">
                 <img src={indonesiaMap} alt="Map of Indonesia" className="w-full h-auto map-indo opacity-0" ref={animateSVG}  />
             </div>
-            <div className="sm:w-2/5 mt-10 sm:mt-0">
+            <div className="sm:w-full lg:w-2/5 mt-10 sm:mt-0">
                 <p className="text-xl font-semibold mb-4">Indonesia's Rank {indonesiaRank}</p>
                 <p className="">Indonesia is the {indonesiaRank}th most populous country in the world, with a population exceeding 270 million people. Located in Southeast Asia, Indonesia consists of more than 17,000 islands, making it the world's largest archipelago. The country has a rich cultural heritage and a diverse population, with over 300 ethnic groups and over 700 languages spoken.</p>
             </div>
