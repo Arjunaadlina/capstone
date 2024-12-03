@@ -37,10 +37,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="hero">
-
-      {/* Hero content */}
-      <div className="container hero-content">
+    <div className="sm:px-16 px-8">
+      <div className="container hero-content ">
         <div className="container__left">
           <h1 className="hero-title">Open Your Mindset</h1>
           <div className="container__btn">
