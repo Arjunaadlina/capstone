@@ -1,19 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCountryData } from '../../../redux/thunk';
+import Detail from './Detail';
+import Table from './Table';
+import gsap from 'gsap';
+import Fitur from './Fitur';
 
 function Rank() {
     const dispatch = useDispatch();
     const sortedCountries = useSelector((state) => state.sortedCountries);
     const [selectedCountry, setSelectedCountry] = useState(sortedCountries[0]);
     const [currentPage, setCurrentPage] = useState(0);
-    const countriesPerPage = 50;
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortOrder, setSortOrder] = useState('ascending');
+    const [countriesPerPage, setCountriesPerPage] = useState(50); 
+    const animateTable = useRef(null);  
+    const [isInView, setIsInView] = useState(false);
 
     useEffect(() => {
-        if (sortedCountries !== true) {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsInView(true); 
+                    observer.disconnect(); 
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+            if (animateTable.current) {
+            observer.observe(animateTable.current); 
+        }
+
+        return () => observer.disconnect()
+    }, []);
+
+    useEffect(() => {
+        if (isInView) {
+            gsap.fromTo(
+                animateTable.current,
+                { opacity: 0, x: -30 },  
+                {opacity: 1, x: 0, duration: 1.5,  ease: 'power3.out'}
+            )
+        }
+    }, [isInView])
+
+
+    useEffect(() => {
+        if (!sortedCountries?.length) {
             dispatch(fetchCountryData());
         }
-    }, [dispatch]);
+    }, [dispatch, sortedCountries]);
+
+    const countriesWithIndex = sortedCountries?.map((country, index) => ({
+        ...country,
+        originalIndex: index + 1,
+    }));
+
+    const sortedCountriesByOrder = [...(countriesWithIndex || [])].sort((a, b) => {
+        if (sortOrder === 'ascending') {
+            return a.originalIndex - b.originalIndex;
+        }
+        return b.originalIndex - a.originalIndex;
+    });
 
     const handleCountryClick = (country) => {
         setSelectedCountry(country);
@@ -31,118 +80,43 @@ function Rank() {
         setCurrentPage(page);
     };
 
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+        setCurrentPage(0); 
+    };
+
+    const handleSortOrderChange = (e) => {
+        setSortOrder(e.target.value);
+    };
+
+    const handleCountriesPerPageChange = (e) => {
+        setCountriesPerPage(Number(e.target.value));
+        setCurrentPage(0); 
+    };
+
+    const filteredCountries = sortedCountriesByOrder?.filter((country) =>
+        country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     const startIndex = currentPage * countriesPerPage;
     const endIndex = startIndex + countriesPerPage;
-    const countriesToDisplay = sortedCountries && sortedCountries.slice(startIndex, endIndex);
-
-    const totalPages = Math.ceil(sortedCountries?.length / countriesPerPage);
+    const countriesToDisplay = filteredCountries?.slice(startIndex, endIndex);
+    const totalPages = Math.ceil((filteredCountries?.length || 0) / countriesPerPage);
 
     return (
-        <div className='sm:px-16 lg:px-32 px-6 lg:mt-8 mt-2'>
+        <div className="sm:px-16 lg:px-32 px-6 lg:mt-5 md:pt-0 mt-8 ">
+            <Fitur countriesPerPage={countriesPerPage} handleCountriesPerPageChange={handleCountriesPerPageChange} searchQuery={searchQuery} handleSearchChange={handleSearchChange} sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange}
+            />
             <div className="flex flex-col md:flex-row gap-4 lg:h-[450px]">
-                <div className="w-full md:w-1/3 rounded-md p-2">
-                    {selectedCountry && (
-                        <div className='mt-20'>
-                            <h2 className="text-2xl font-bold mb-4 text-gray-800">
-                                {selectedCountry.name.common}
-                            </h2>
-                            <div className="grid grid-cols-1 gap-4">
-                                <div className="flex items-center mb-4">
-                                    <img
-                                        src={selectedCountry.flags.svg}
-                                        alt={`${selectedCountry.name.common} Flag`}
-                                        className="w-32 h-20 object-cover mr-4 border border-gray-300"
-                                    />
-                                    <div>
-                                        <p>
-                                            <span className="font-semibold">Population :        </span>{' '}
-                                            {selectedCountry.population.toLocaleString()}
-                                        </p>
-                                        <p>
-                                            <span className="font-semibold">Region : </span>{' '}
-                                            {selectedCountry.region || 'N/A'}
-                                        </p>
-                                        <p>
-                                            <span className="font-semibold">Subregion : </span>{' '}
-                                            {selectedCountry.subregion || 'N/A'}
-                                        </p>
-                                        <p>
-                                            <span className="font-semibold">Languages : </span>{' '}
-                                            {selectedCountry.languages
-                                                ? Object.values(selectedCountry.languages).join(', ')
-                                                : 'N/A'}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p>
-                                        <span className="font-semibold">Capital : </span>{' '}
-                                        {selectedCountry.capital
-                                            ? selectedCountry.capital.join(', ')
-                                            : 'N/A'}
-                                    </p>
-                                    <p>
-                                        <span className="font-semibold">Area : </span>{' '}
-                                        {selectedCountry.area.toLocaleString()} km²
-                                    </p>
-                                    <p>
-                                        <span className="font-semibold">Country Code : </span>{' '}
-                                        {selectedCountry.cca2}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Tabel Negara */}
-                <div className="flex-1 overflow-y-auto h-full">
-                    <table className="min-w-full border-collapse border bg-primary-cream">
-                        <thead className="bg-primary-brown sticky top-0 z-1">
-                            <tr>
-                                <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Rank</th>
-                                <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Flag</th>
-                                <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Country</th>
-                                <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Population</th>
-                                <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Languages</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {countriesToDisplay &&
-                                countriesToDisplay.map((country, index) => (
-                                    <tr
-                                        key={country.cca3}
-                                        className="even:primary-brown cursor-pointer hover:bg-orange-200"
-                                        onClick={() => handleCountryClick(country)}
-                                    >
-                                        <td className="px-4 py-2 border border-primary-brown text-center text-sm md:text-md">
-                                            {startIndex + index + 1}
-                                        </td>
-                                        <td className="px-4 py-2 border border-primary-brown">
-                                            <img
-                                                src={country.flags.svg}
-                                                alt={`${country.name.common} Flag`}
-                                                className="w-10 h-6 object-cover"
-                                            />
-                                        </td>
-                                        <td className="px-4 py-2 border border-primary-brown text-center text-sm md:text-md">
-                                            {country.name.common}
-                                        </td>
-                                        <td className="px-4 py-2 border border-primary-brown text-center text-sm md:text-md">
-                                            {country.population.toLocaleString()}
-                                        </td>
-                                        <td className="px-4 py-2 border border-primary-brown text-center text-sm md:text-md">
-                                            {country.languages
-                                                ? Object.values(country.languages).join(', ')
-                                                : 'N/A'}
-                                        </td>
-                                    </tr>
-                                ))}
-                        </tbody>
-                    </table>
+                <Detail selectedCountry={selectedCountry} />
+                <div className="overflow-y-auto h-full flex-1" ref={animateTable}>
+                    <Table
+                        countriesToDisplay={countriesToDisplay}
+                        handleCountryClick={handleCountryClick}
+                    />
                 </div>
             </div>
-            <div className='w-full flex justify-end items-end mt-4'>
+            <div className="w-full flex justify-end items-end mt-4">
                 <div className="flex justify-between items-center w-full md:w-1/3">
                     <button
                         onClick={handlePreviousPage}
@@ -169,7 +143,7 @@ function Rank() {
                     <button
                         onClick={handleNextPage}
                         className="px-4 py-2 bg-primary-brown text-white text-sm rounded hover:bg-orange-200"
-                        disabled={endIndex >= sortedCountries.length}
+                        disabled={endIndex >= filteredCountries.length}
                     >
                         Next
                     </button>
