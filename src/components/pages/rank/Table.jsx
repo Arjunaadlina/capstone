@@ -1,15 +1,17 @@
+import React from 'react';
 
-
-function Table({ countriesToDisplay, handleCountryClick }) {
-    
+function Table({ countriesToDisplay, handleCountryClick, rankBy }) {
     return (
-        <table className="min-w-full border-collapse border bg-primary-cream ">
+        <table className="min-w-full border-collapse border bg-primary-cream">
             <thead className="bg-primary-brown sticky top-0 z-2">
                 <tr>
                     <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Rank</th>
                     <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Flag</th>
                     <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Country</th>
                     <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Population</th>
+                    {rankBy === 'area' && (
+                        <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Area (km²)</th>
+                    )}
                     <th className="px-4 py-2 border border-primary-brown bg-primary-brown text-center text-primary-cream text-sm md:text-md">Languages</th>
                 </tr>
             </thead>
@@ -18,7 +20,7 @@ function Table({ countriesToDisplay, handleCountryClick }) {
                     countriesToDisplay.map((country) => (
                         <tr
                             key={country.cca3}
-                            className="even:primary-brown cursor-pointer hover:bg-orange-200"
+                            className="even:bg-primary-cream cursor-pointer hover:bg-orange-200"
                             onClick={() => handleCountryClick(country)}
                         >
                             <td className="px-4 py-2 border border-primary-brown text-center text-sm md:text-md">
@@ -37,6 +39,11 @@ function Table({ countriesToDisplay, handleCountryClick }) {
                             <td className="px-4 py-2 border border-primary-brown text-center text-sm md:text-md">
                                 {country.population.toLocaleString()}
                             </td>
+                            {rankBy === 'area' && (
+                                <td className="px-4 py-2 border border-primary-brown text-center text-sm md:text-md">
+                                    {country.area?.toLocaleString() || 'N/A'}
+                                </td>
+                            )}
                             <td className="px-4 py-2 border border-primary-brown text-center text-sm md:text-md">
                                 {country.languages
                                     ? Object.values(country.languages).join(', ')

@@ -13,38 +13,10 @@ function Rank() {
     const [currentPage, setCurrentPage] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOrder, setSortOrder] = useState('ascending');
-    const [countriesPerPage, setCountriesPerPage] = useState(50); 
-    const animateTable = useRef(null);  
+    const [countriesPerPage, setCountriesPerPage] = useState(50);
+    const [rankBy, setRankBy] = useState('population');
     const [isInView, setIsInView] = useState(false);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsInView(true); 
-                    observer.disconnect(); 
-                }
-            },
-            { threshold: 0.5 }
-        );
-
-            if (animateTable.current) {
-            observer.observe(animateTable.current); 
-        }
-
-        return () => observer.disconnect()
-    }, []);
-
-    useEffect(() => {
-        if (isInView) {
-            gsap.fromTo(
-                animateTable.current,
-                { opacity: 0, x: -30 },  
-                {opacity: 1, x: 0, duration: 1.5,  ease: 'power3.out'}
-            )
-        }
-    }, [isInView])
-
+    const animateTable = useRef(null);
 
     useEffect(() => {
         if (!sortedCountries?.length) {
@@ -52,60 +24,81 @@ function Rank() {
         }
     }, [dispatch, sortedCountries]);
 
-    const countriesWithIndex = sortedCountries?.map((country, index) => ({
-        ...country,
-        originalIndex: index + 1,
-    }));
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsInView(true);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.5 }
+        );
 
-    const sortedCountriesByOrder = [...(countriesWithIndex || [])].sort((a, b) => {
-        if (sortOrder === 'ascending') {
-            return a.originalIndex - b.originalIndex;
+        if (animateTable.current) {
+            observer.observe(animateTable.current);
         }
-        return b.originalIndex - a.originalIndex;
-    });
 
-    const handleCountryClick = (country) => {
-        setSelectedCountry(country);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (isInView) {
+            gsap.fromTo(
+                animateTable.current,
+                { opacity: 0, x: -30 },
+                { opacity: 1, x: 0, duration: 1.5, ease: 'power3.out' }
+            );
+        }
+    }, [isInView]);
+
+    const rankCountries = (countries, rankBy, sortOrder) => {
+        const sorted = [...countries].sort((a, b) => {
+            const key = rankBy === 'area' ? 'area' : 'population';
+            return sortOrder === 'ascending' ? b[key] - a[key] : a[key] - b[key];
+        });
+        return sorted.map((country, index) => ({
+            ...country,
+            originalIndex: index + 1,
+        }));
     };
 
-    const handleNextPage = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
-    };
-
-    const handlePreviousPage = () => {
-        setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
-    };
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
-
+    const handleCountryClick = (country) => setSelectedCountry(country);
+    const handlePageChange = (page) => setCurrentPage(page);
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
-        setCurrentPage(0); 
+        setCurrentPage(0);
     };
-
-    const handleSortOrderChange = (e) => {
-        setSortOrder(e.target.value);
-    };
-
+    const handleSortOrderChange = (e) => setSortOrder(e.target.value);
     const handleCountriesPerPageChange = (e) => {
         setCountriesPerPage(Number(e.target.value));
-        setCurrentPage(0); 
+        setCurrentPage(0);
     };
 
-    const filteredCountries = sortedCountriesByOrder?.filter((country) =>
+    const filteredCountries = rankCountries(
+        sortedCountries || [],
+        rankBy,
+        sortOrder
+    ).filter((country) =>
         country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const startIndex = currentPage * countriesPerPage;
     const endIndex = startIndex + countriesPerPage;
-    const countriesToDisplay = filteredCountries?.slice(startIndex, endIndex);
-    const totalPages = Math.ceil((filteredCountries?.length || 0) / countriesPerPage);
+    const countriesToDisplay = filteredCountries.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(filteredCountries.length / countriesPerPage);
 
     return (
-        <div className="sm:px-16 lg:px-32 px-6 lg:mt-5 md:pt-0 mt-8 ">
-            <Fitur countriesPerPage={countriesPerPage} handleCountriesPerPageChange={handleCountriesPerPageChange} searchQuery={searchQuery} handleSearchChange={handleSearchChange} sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange}
+        <div className="sm:px-16 lg:px-32 px-6 lg:mt-5 md:pt-0 mt-8">
+            <Fitur
+                countriesPerPage={countriesPerPage}
+                handleCountriesPerPageChange={handleCountriesPerPageChange}
+                searchQuery={searchQuery}
+                handleSearchChange={handleSearchChange}
+                sortOrder={sortOrder}
+                handleSortOrderChange={handleSortOrderChange}
+                rankBy={rankBy}
+                setRankBy={setRankBy}
             />
             <div className="flex flex-col md:flex-row gap-4 lg:h-[450px]">
                 <Detail selectedCountry={selectedCountry} />
@@ -113,13 +106,14 @@ function Rank() {
                     <Table
                         countriesToDisplay={countriesToDisplay}
                         handleCountryClick={handleCountryClick}
+                        rankBy={rankBy}
                     />
                 </div>
             </div>
             <div className="w-full flex justify-end items-end mt-4">
                 <div className="flex justify-between items-center w-full md:w-1/3">
                     <button
-                        onClick={handlePreviousPage}
+                        onClick={() => handlePageChange(currentPage - 1)}
                         className="px-4 py-2 bg-primary-brown text-white text-sm rounded hover:bg-orange-200"
                         disabled={currentPage === 0}
                     >
@@ -141,7 +135,7 @@ function Rank() {
                         ))}
                     </div>
                     <button
-                        onClick={handleNextPage}
+                        onClick={() => handlePageChange(currentPage + 1)}
                         className="px-4 py-2 bg-primary-brown text-white text-sm rounded hover:bg-orange-200"
                         disabled={endIndex >= filteredCountries.length}
                     >

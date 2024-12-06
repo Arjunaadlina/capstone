@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Fitur({sortOrder, handleSortOrderChange, countriesPerPage, handleCountriesPerPageChange, searchQuery, handleSearchChange}) {
+function Fitur({sortOrder, handleSortOrderChange, countriesPerPage, handleCountriesPerPageChange, searchQuery, handleSearchChange, rankBy, setRankBy}) {
     return (
         <div className={`flex flex-col sm:flex-row items-end justify-end mb-4 gap-2`}>
             <div className="flex gap-2">
@@ -31,6 +31,18 @@ function Fitur({sortOrder, handleSortOrderChange, countriesPerPage, handleCountr
                 placeholder="Search country..."
                 className="w-72 px-4 py-2 rounded border-primary-cream border-2 h-10"
             />
+            <div className="flex items-center gap-2 h-10">
+                <select
+                    id="rankBy"
+                    value={rankBy}
+                    onChange={(e) => setRankBy(e.target.value)}
+                    className="border-2 rounded px-2 py-2 "
+                >
+                    <option value="population">Population</option>
+                    <option value="area">Area</option>
+                </select>
+            </div>
+
         </div>
     )
 }
