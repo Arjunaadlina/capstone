@@ -37,7 +37,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="sm:px-16 px-8">
+    <div className="sm:px-16 md:mt-4">
       <div className="container hero-content ">
         <div className="container__left">
           <h1 className="hero-title">Open Your Mindset</h1>
