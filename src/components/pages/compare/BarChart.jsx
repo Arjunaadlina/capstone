@@ -4,6 +4,11 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function BarChart({selectedCountry1, selectedCountry2}) {
+    const formatPopulation = (population) => {
+        if (population === 0) return '0';
+        const billion = population / 1_000_000_000;
+        return billion % 1 === 0 ? `${billion} B` : `${billion.toFixed(1)} B`;
+    };
     const chartData = {
         labels: [
             selectedCountry1?.name.common || "Country 1",
@@ -33,10 +38,19 @@ function BarChart({selectedCountry1, selectedCountry2}) {
                 text: "Population Comparison",
             },
         },
+        scales: {
+            y: {
+                ticks: {
+                    callback: function (value) {
+                        return formatPopulation(value);
+                    },
+                },
+            },
+        },
     };
 
     return (
-        <div className="mt-6 h-96 w-[700px]">
+        <div className="mt-6 h-96 lg:w-[700px]">
             <Bar data={chartData} options={chartOptions} />
         </div>
     )

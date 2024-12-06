@@ -89,7 +89,7 @@ function Rank() {
     const totalPages = Math.ceil(filteredCountries.length / countriesPerPage);
 
     return (
-        <div className="sm:px-16 lg:px-32 px-6 lg:mt-5 md:pt-0 mt-8">
+        <div className="sm:px-16 lg:px-32 px-6 lg:mt-6 md:pt-0 mt-8">
             <Fitur
                 countriesPerPage={countriesPerPage}
                 handleCountriesPerPageChange={handleCountriesPerPageChange}
