@@ -1,31 +1,40 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import Sugesstion from "./Sugesstion";
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
+import '../../../assets/css/skleton.css';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCountryData } from "../../../redux/thunk";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Compare = () => {
-  const [countries, setCountries] = useState([]);
+  const dispatch = useDispatch();
   const [searchTerm1, setSearchTerm1] = useState("");
   const [searchTerm2, setSearchTerm2] = useState("");
   const [suggestions1, setSuggestions1] = useState([]);
   const [suggestions2, setSuggestions2] = useState([]);
   const [selectedCountry1, setSelectedCountry1] = useState(null);
   const [selectedCountry2, setSelectedCountry2] = useState(null);
-
+  const loading = useSelector((state) => state.loading);
+  const countries = useSelector((state) => state.sortedCountries);
 
   useEffect(() => {
-    axios
-      .get("https://restcountries.com/v3.1/all")
-      .then((response) => {
-        setCountries(response.data);
-      })
-      .catch((error) => console.error("Error fetching countries:", error));
-  }, []);
+    if(countries.length === 0){
+        dispatch(fetchCountryData())
+    }
+  }, [dispatch, countries.length])
+
+  if (loading) {
+    return (
+        <div className='mt-20 sm:px-16 md:px-32 px-8'>
+            <div className="skeleton skeleton-hero"></div>
+            <div className="skeleton skeleton-content1"></div>
+            <div className="skeleton skeleton-content2"></div>
+            <div className="skeleton skeleton-content3"></div>
+        </div>
+    );
+}
 
   const handleSearch = (searchTerm, setSuggestions) => {
     const filteredCountries = countries.filter((c) =>

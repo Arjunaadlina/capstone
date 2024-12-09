@@ -4,34 +4,44 @@ import {
     setWorldPopulation,
     setIndonesiaRank,
     setSortedCountries,
+    setLoading, 
+    setError,  
 } from './actions';
 
 export const fetchCountryData = () => async (dispatch) => {
     try {
+        dispatch(setLoading(true)); 
+
         const response = await axios.get('https://restcountries.com/v3.1/all');
-        const data = response.data.reduce((acc, country) => {
-        const continent = country.region
+        const countries = response.data || []; 
 
-        if (!acc[continent]) {
-            acc[continent] = { count: 0, population: 0 }
-        }
+        const continentData = countries.reduce((acc, country) => {
+            const continent = country.region || 'Unknown';
+            if (!acc[continent]) {
+                acc[continent] = { count: 0, population: 0 };
+            }
+            acc[continent].count += 1;
+            acc[continent].population += country.population || 0;
+            return acc;
+        }, {});
 
-        acc[continent].count += 1
-        acc[continent].population += country.population
-        
-        return acc;
-    }, {});
+        const totalPopulation = countries.reduce((sum, country) => sum + (country.population || 0), 0);
 
-        const totalPopulation = response.data.reduce((sum, country) => sum + country.population, 0);
-        const sortedCountries = response.data.sort((a, b) => b.population - a.population);
-        const indonesiaIndex = sortedCountries.findIndex(country => country.name.common === "Indonesia");
+        const sortedCountries = [...countries].sort((a, b) => (b.population || 0) - (a.population || 0));
+
+        const indonesiaIndex = sortedCountries.findIndex(
+            (country) => country.name.common === 'Indonesia'
+        );
         const indonesiaRank = indonesiaIndex !== -1 ? indonesiaIndex + 1 : null;
 
-        dispatch(setContinentData(data));
+        dispatch(setContinentData(continentData));
         dispatch(setWorldPopulation(totalPopulation));
         dispatch(setSortedCountries(sortedCountries));
         dispatch(setIndonesiaRank(indonesiaRank));
     } catch (error) {
         console.error('Error fetching data:', error);
+        dispatch(setError('Failed to fetch country data. Please try again later.'));
+    } finally {
+        dispatch(setLoading(false));
     }
 };

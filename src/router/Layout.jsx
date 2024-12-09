@@ -6,18 +6,14 @@ import Footer from '../components/pages/dashboard/Footer';
 function Layout() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     return (
         <div>
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-primary-brown md:bg-white w-full flex items-center justify-center">
-                <div className="flex items-center justify-between py-6 md:py-7 w-[1200px] lg:px-4 px-8 ">
+            <nav className=" sticky top-0 left-0 right-0 z-50 bg-primary-brown md:bg-white w-full flex items-center justify-center">
+                <div className="flex items-center justify-between py-3 md:py-7 w-[1200px] lg:px-4 px-8 ">
                     <div className="text-2xl font-bold text-white md:text-primary-brown">
                         <a href="#">CoPop</a>
                     </div>
@@ -48,7 +44,7 @@ function Layout() {
             </div>
 
             {/* Main Content */}
-            <main className="pt-20">
+            <main className="">
                 <Outlet />
             </main>
 

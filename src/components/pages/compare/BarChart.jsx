@@ -6,8 +6,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 function BarChart({selectedCountry1, selectedCountry2}) {
     const formatPopulation = (population) => {
         if (population === 0) return '0';
-        const billion = population / 1_000_000_000;
-        return billion % 1 === 0 ? `${billion} B` : `${billion.toFixed(1)} B`;
+        const billion = population / 1_000_000;
+        return billion % 1 === 0 ? `${billion} M` : `${billion.toFixed(1)} M`;
     };
     const chartData = {
         labels: [

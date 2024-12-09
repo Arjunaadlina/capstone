@@ -47,7 +47,7 @@ const Content1 = ({continentData, worldPopulation}) => {
 
 
   return (
-    <div className="mt-20 sm:px-16 md:px-32 px-8">
+    <div className="md:mt-20 sm:px-16 md:px-32 px-8">
       <p className="text-3xl font-bold text-center tracking-wide text-primary-brown md:text-5xl">
         This year the world population is
       </p>

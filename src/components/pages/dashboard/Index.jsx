@@ -5,6 +5,7 @@ import Content3 from './Content3'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCountryData } from '../../../redux/thunk'
 import Hero from './Hero'
+import '../../../assets/css/skleton.css'
 
 function Dashboard() {
     const dispatch = useDispatch();
@@ -12,12 +13,25 @@ function Dashboard() {
     const worldPopulation = useSelector((state) => state.worldPopulation);
     const indonesiaRank = useSelector((state) => state.indonesiaRank);
     const sortedCountries = useSelector((state) => state.sortedCountries);
+    
+    const loading = useSelector((state) => state.loading);
 
     useEffect(() => {
-        if(sortedCountries !== true){
+        if(sortedCountries.length === 0){
             dispatch(fetchCountryData())
         }
-    }, [dispatch]);
+    }, [dispatch, sortedCountries.length])
+
+    if (loading) {
+        return (
+            <div className='mt-20 sm:px-16 md:px-32 px-8'>
+                <div className="skeleton skeleton-hero"></div>
+                <div className="skeleton skeleton-content1"></div>
+                <div className="skeleton skeleton-content2"></div>
+                <div className="skeleton skeleton-content3"></div>
+            </div>
+        );
+    }
 
     return (
         <div>

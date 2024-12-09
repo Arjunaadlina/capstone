@@ -2,7 +2,7 @@ import React from 'react'
 
 function Fitur({sortOrder, handleSortOrderChange, countriesPerPage, handleCountriesPerPageChange, searchQuery, handleSearchChange, rankBy, setRankBy}) {
     return (
-        <div className={`flex flex-col sm:flex-row items-end justify-end mb-4 gap-2`}>
+        <div className={`flex flex-col md:flex-row items-end justify-end mb-4 gap-2`}>
             <div className="flex gap-2">
                 <select
                     value={sortOrder}
