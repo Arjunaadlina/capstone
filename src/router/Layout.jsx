@@ -39,7 +39,7 @@ function Layout() {
                     <li className="py-2"><Link to="/" className="hover:text-primary-cream font-semibold">HOME</Link></li>
                     <li className="py-2"><Link to="/rank" className="hover:text-primary-cream font-semibold">RANK</Link></li>
                     <li className="py-2"><Link to="/compare" className="hover:text-primary-cream font-semibold">COMPARE</Link></li>
-                    <li className="py-2"><Link to="/" className="hover:text-primary-cream font-semibold">NEWS</Link></li>
+                    <li className="py-2"><Link to="/news" className="hover:text-primary-cream font-semibold">NEWS</Link></li>
                 </ul>
             </div>
 
