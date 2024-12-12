@@ -56,7 +56,7 @@ export const fetchNewsData = () => async (dispatch) => {
             {
                 params: {
                 q: 'Peace',
-                    'api-key': import.meta.env.VITE_NYT_API_KEY,
+                    'api-key': import.meta.env.APP_NYT_SECRET,
                 },
             }
         );
