@@ -46,9 +46,9 @@ function Sugesstion({
                         alt={`${selectedCountry.name.common} flag`}
                         className="w-16 h-10 mb-2"
                     />
-                    <p>Population: {selectedCountry.population.toLocaleString()}</p>
-                    <p>Region: {selectedCountry.region}</p>
-                    <p>Capital: {selectedCountry.capital?.[0]}</p>
+                    <p className="text-[12px] sm:text-sm md:text-md">Population: {selectedCountry.population.toLocaleString()}</p>
+                    <p className="text-[12px] sm:text-sm md:text-md">Region: {selectedCountry.region}</p>
+                    <p className="text-[12px] sm:text-sm md:text-md">Capital: {selectedCountry.capital?.[0]}</p>
                 </div>
             )}
         </div>

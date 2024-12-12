@@ -46,6 +46,7 @@ const News = () => {
                     imageCustomStyle={
                         index === 0 ? 'h-96' :
                         index === 7 ? 'h-96' :
+                        index === 6 ? 'h-96' :
                         'h-48'
                     }
                 />

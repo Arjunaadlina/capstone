@@ -38,7 +38,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="sm:px-16 md:mt-4">
+    <div className="sm:px-16 ">
       <div className='absolute left-40 w-40 h-w-40'>
         
       </div>
