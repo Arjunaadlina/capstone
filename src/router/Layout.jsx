@@ -24,7 +24,7 @@ function Layout() {
                         <li><Link to="/" className="hover:text-primary-cream ">HOME</Link></li>
                         <li><Link to="/rank" className="hover:text-primary-cream ">RANK</Link></li>
                         <li><Link to="/compare" className="hover:text-primary-cream ">COMPARE</Link></li>
-                        <li><Link to="/" className="hover:text-primary-cream ">NEWS</Link></li>
+                        <li><Link to="/news" className="hover:text-primary-cream ">NEWS</Link></li>
                     </ul>
                     <div className="hidden md:block">
                         <button className="text-2xl hover:text-primary-cream">

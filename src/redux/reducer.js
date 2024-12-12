@@ -5,6 +5,8 @@ import {
     SET_SORTED_COUNTRIES,
     SET_LOADING, 
     SET_ERROR,  
+    SET_NEWS_DATA,
+    SET_LOADING_NEWS
 } from './actions';
 
 const initialState = {
@@ -14,6 +16,8 @@ const initialState = {
     sortedCountries: [],
     loading: false,
     error: null, 
+    newsData: [],
+    loadingNews : false
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +39,12 @@ const reducer = (state = initialState, action) => {
 
         case SET_ERROR: 
             return { ...state, error: action.payload };
+        
+        case SET_NEWS_DATA:
+            return { ...state, newsData: action.payload };
+        
+        case SET_LOADING_NEWS:
+            return { ...state, loadingNews: action.payload };
 
         default:
             return state;

@@ -6,6 +6,8 @@ import {
     setSortedCountries,
     setLoading, 
     setError,  
+    setNewsData,
+    setLoadingNews
 } from './actions';
 
 export const fetchCountryData = () => async (dispatch) => {
@@ -43,5 +45,27 @@ export const fetchCountryData = () => async (dispatch) => {
         dispatch(setError('Failed to fetch country data. Please try again later.'));
     } finally {
         dispatch(setLoading(false));
+    }
+};
+
+export const fetchNewsData = () => async (dispatch) => {
+    try { 
+        dispatch(setLoadingNews(true));
+        const response = await axios.get(
+        `https://api.nytimes.com/svc/search/v2/articlesearch.json`,
+            {
+                params: {
+                q: 'Peace',
+                    'api-key': import.meta.env.VITE_NYT_API_KEY,
+                },
+            }
+        );
+
+        dispatch(setNewsData(response.data.response.docs.slice(0, 12))); 
+    } catch (error) {
+        console.error('Error fetching news data:', error);
+        dispatch(setError('Failed to fetch news data. Please try again later.'));
+    } finally {
+        dispatch(setLoadingNews(false));
     }
 };
