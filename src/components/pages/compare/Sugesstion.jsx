@@ -15,7 +15,7 @@ function Sugesstion({
         <div className="space-y-4 relative">
             <input
                 type="text"
-                placeholder="Search Country 1"
+                placeholder="Search Country"
                 className="w-full p-2 border rounded"
                 value={searchTerm}
                 onChange={(e) => {
