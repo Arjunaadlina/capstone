@@ -27,7 +27,7 @@ const News = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 lg:px-32 md:mt-8 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 lg:px-32 md:mt-8 mt-8">
             {articles.map((article, index) => (
                 <Card
                     key={index}
