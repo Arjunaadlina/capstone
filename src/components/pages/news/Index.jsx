@@ -17,7 +17,7 @@ const News = () => {
 
     if (loadingNews) {
         return (
-            <div className='mt-20 sm:px-16 md:px-32 px-8'>
+            <div className='mt-8 sm:px-16 md:px-32 px-8'>
                 <div className="skeleton skeleton-hero"></div>
                 <div className="skeleton skeleton-content1"></div>
                 <div className="skeleton skeleton-content2"></div>
@@ -27,7 +27,7 @@ const News = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 lg:px-32 md:mt-8 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 lg:px-32 md:mt-8 mt-8">
             {articles.map((article, index) => (
                 <Card
                     key={index}

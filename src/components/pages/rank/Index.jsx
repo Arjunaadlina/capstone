@@ -37,7 +37,14 @@ function Rank() {
         }));
     };
 
-    const handleCountryClick = (country) => setSelectedCountry(country);
+    const handleCountryClick = (country) => {
+    setSelectedCountry(country);
+    window.scrollTo({
+        top: 0, 
+        behavior: 'smooth', 
+    });
+    };
+
     const handlePageChange = (page) => setCurrentPage(page);
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);

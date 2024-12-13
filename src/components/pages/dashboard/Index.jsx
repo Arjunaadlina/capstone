@@ -24,7 +24,7 @@ function Dashboard() {
 
     if (loading) {
         return (
-            <div className='mt-20 sm:px-16 md:px-32 px-8'>
+            <div className='mt-8 sm:px-16 md:px-32 px-8'>
                 <div className="skeleton skeleton-hero"></div>
                 <div className="skeleton skeleton-content1"></div>
                 <div className="skeleton skeleton-content2"></div>
