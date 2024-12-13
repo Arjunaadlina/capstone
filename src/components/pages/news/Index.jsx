@@ -12,8 +12,16 @@ const News = () => {
     useEffect(() => {
         if(articles.length === 0) {
             dispatch(fetchNewsData());
+            const timer = setTimeout(() => {
+                if (articles.length === 0) {
+                    window.alert('Failed to fetch valid country data. Please refresh the page.');
+                    window.location.reload();
+                }
+            }, 15000);
+
+            return () => clearTimeout(timer);
         }
-    }, [dispatch]);
+    }, [dispatch, articles]);
 
     if (loadingNews) {
         return (

@@ -22,6 +22,14 @@ function Rank() {
     useEffect(() => {
         if (sortedCountries.length === 0) {
             dispatch(fetchCountryData());
+            const timer = setTimeout(() => {
+                if (sortedCountries.length === 0) {
+                    window.alert('Failed to fetch valid country data. Please refresh the page.');
+                    window.location.reload();
+                }
+            }, 15000);
+
+            return () => clearTimeout(timer);
         }
     }, [dispatch, sortedCountries]);
 

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import Content1 from './Content1'
-import Content2 from './Content2'
-import Content3 from './Content3'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchCountryData } from '../../../redux/thunk'
-import Hero from './Hero'
-import '../../../assets/css/skleton.css'
+import React, { useEffect } from 'react';
+import Content1 from './Content1';
+import Content2 from './Content2';
+import Content3 from './Content3';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCountryData } from '../../../redux/thunk';
+import Hero from './Hero';
+import '../../../assets/css/skleton.css';
 
 function Dashboard() {
     const dispatch = useDispatch();
@@ -13,14 +13,22 @@ function Dashboard() {
     const worldPopulation = useSelector((state) => state.worldPopulation);
     const indonesiaRank = useSelector((state) => state.indonesiaRank);
     const sortedCountries = useSelector((state) => state.sortedCountries);
-    
+
     const loading = useSelector((state) => state.loading);
 
     useEffect(() => {
-        if(sortedCountries.length === 0){
-            dispatch(fetchCountryData())
+        if (sortedCountries.length === 0) {
+            dispatch(fetchCountryData());
+            const timer = setTimeout(() => {
+                if (sortedCountries.length === 0) {
+                    window.alert('Failed to fetch valid country data. Please refresh the page.');
+                    window.location.reload();
+                }
+            }, 15000);
+
+            return () => clearTimeout(timer);
         }
-    }, [dispatch, sortedCountries.length])
+    }, [dispatch, sortedCountries.length]);
 
     if (loading) {
         return (
@@ -40,7 +48,7 @@ function Dashboard() {
             <Content2 indonesiaRank={indonesiaRank} />
             <Content3 top1={sortedCountries[0]} lastTop={sortedCountries[sortedCountries.length - 1]} />
         </div>
-    )
+    );
 }
 
-export default Dashboard
+export default Dashboard;
