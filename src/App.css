@@ -19,7 +19,7 @@ h1 {
 
 .charts-container {
   display: flex;
-  justify-content: center; /* Memusatkan grafik secara horizontal */
+  justify-content: center; 
   gap: 20px; /* Jarak antara grafik */
   height : 400px;
   width : 90%;
