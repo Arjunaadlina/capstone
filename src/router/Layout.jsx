@@ -14,8 +14,10 @@ function Layout() {
         <div>
             <nav className=" sticky top-0 left-0 right-0 z-50 bg-primary-brown md:bg-white w-full flex items-center justify-center">
                 <div className="flex items-center justify-between py-3 md:py-7 w-[1200px] lg:px-4 px-8 ">
-                    <div className="text-2xl font-bold text-white md:text-primary-brown">
-                        <a href="#">CoPop</a>
+                    <div className="text-2xl font-bold text-white md:text-primary-brown cursor-pointer">
+                        <Link to="/">
+                            <p>CoPop</p>
+                        </Link>
                     </div>
                     <div className="text-2xl md:hidden" onClick={toggleMenu}>
                         <i className="ri-menu-line text-white"></i>
