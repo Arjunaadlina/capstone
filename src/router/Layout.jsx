@@ -27,9 +27,11 @@ function Layout() {
                         <li><Link to="/news" className="hover:text-primary-cream ">NEWS</Link></li>
                     </ul>
                     <div className="hidden md:block">
-                        <button className="text-2xl hover:text-primary-cream">
-                            <i className="ri-search-line"></i>
-                        </button>
+                        <Link to="https://github.com/Arjunaadlina/capstone" target='_blank'>
+                            <button className="text-2xl hover:text-primary-cream">
+                                <i className="ri-github-line"></i>
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </nav>
