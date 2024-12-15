@@ -42,7 +42,7 @@ export const fetchCountryData = () => async (dispatch) => {
         dispatch(setIndonesiaRank(indonesiaRank));
     } catch (error) {
         console.error('Error fetching data:', error);
-        dispatch(setError('Failed to fetch country data. Please try again later.'));
+        dispatch(setError('Server error. Failed to fetch country data. Please try again later.'));
     } finally {
         dispatch(setLoading(false));
     }
