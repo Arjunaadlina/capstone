@@ -35,7 +35,7 @@ const News = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 lg:px-32 md:mt-8 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 px-4 lg:px-32 md:mt-8 mt-8">
             {articles.map((article, index) => (
                 <Card
                     key={index}
@@ -49,7 +49,7 @@ const News = () => {
                         ? 'md:col-span-3 md:row-span-3 sm:col-span-2 sm:row-span-2 lg:col-span-1 lg:row-span-1' 
                         : index === 7 
                         ? 'md:col-span-2 md:row-span-1 sm:col-span-2 sm:row-span-2' 
-                        : 'md:col-span-1 sm:col-span-1'
+                        : 'grid-cols-1'
                     }
                     imageCustomStyle={
                         index === 0 ? 'h-96' :
