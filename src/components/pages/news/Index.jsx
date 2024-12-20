@@ -44,9 +44,10 @@ const News = () => {
                     summary={article.abstract}
                     customStyle={
                         index === 0
-                        ? 'md:col-span-2 md:row-span-2 sm:col-span-2 sm:row-span-2'
+                        ? 'md:col-span-2 md:row-span-1 sm:col-span-2 sm:row-span-2'
                         : index === 1
                         ? 'md:col-span-3 md:row-span-3 sm:col-span-2 sm:row-span-2 lg:col-span-1 lg:row-span-1' 
+                        : index === 6 ? 'md:col-span-2 md:row-span-1 sm:col-span-2 sm:row-span-2'
                         : index === 7 
                         ? 'md:col-span-2 md:row-span-1 sm:col-span-2 sm:row-span-2' 
                         : 'grid-cols-1'
