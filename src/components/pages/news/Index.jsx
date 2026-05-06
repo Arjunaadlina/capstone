@@ -17,7 +17,7 @@ const News = () => {
                     window.alert('Failed to fetch valid country data. Please refresh the page.');
                     window.location.reload();
                 }
-            }, 15000);
+            }, 30000);
 
             return () => clearTimeout(timer);
         }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../components/pages/dashboard/Index";
 import Compare from "../components/pages/compare/Index";

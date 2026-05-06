@@ -14,7 +14,14 @@ export const fetchCountryData = () => async (dispatch) => {
     try {
         dispatch(setLoading(true)); 
 
-        const response = await axios.get('https://restcountries.com/v3.1/all');
+const response = await axios.get(
+  'https://restcountries.com/v3.1/all',
+  {
+    params: {
+      fields: 'name,region,subregion,population,flags,capital,languages,area,cca2'
+    }
+  }
+);
         const countries = response.data || []; 
 
         const continentData = countries.reduce((acc, country) => {

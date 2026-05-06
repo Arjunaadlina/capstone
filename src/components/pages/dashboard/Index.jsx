@@ -24,7 +24,7 @@ function Dashboard() {
                     window.alert('Failed to fetch valid country data. Please refresh the page.');
                     window.location.reload();
                 }
-            }, 10000);
+            }, 30000);
 
             return () => clearTimeout(timer);
         }

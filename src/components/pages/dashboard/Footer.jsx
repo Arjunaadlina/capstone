@@ -20,7 +20,7 @@ function Footer() {
                         </p>
                         <ul className="space-y-4">
                             <li className="flex items-center gap-3">
-                                <a href="https://wa.me/6285794214136" className="text-gray-300 hover:text-white">+62 857-9421-4136</a>
+                                <a href="https://wa.me/6282113784698" className="text-gray-300 hover:text-white">+62 857-9421-4136</a>
                             </li>
                             <li className="flex items-center gap-3">
                                 <a href="mailto:arjunaadlinamartha@gmail.com" className="text-gray-300 hover:text-white">arjunaadlinamartha@gmail.com</a>
